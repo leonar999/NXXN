@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <div class="Access">
+        <form action="" id="loginForm">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="text" id="loginEmail" placeholder="Username" required>
+            </div>
+            <div class="input-box">
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+            <div class="remember-forgot">
+                <label><input type="checkbox">Remember Me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+
+            <a href="index.html"></a><button type="submit" class="btn">Login</button>
+
+            <div class="register-link">Don't have an account? <a href="signup.html">Register</a></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get user input values from the login form
+            const loginEmail = document.getElementById('loginEmail').value;
+            const loginPassword = document.getElementById('loginPassword').value;
+
+            // Retrieve the list of existing users from Local Storage
+            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if there is a matching user
+            const user = existingUsers.find(user => user.email === loginEmail && user.password === loginPassword);
+
+            if (user) {
+                // User is authenticated, you can redirect to the desired page
+                alert('Login successful! Redirecting...');
+                window.location.href = 'index.html';
+                // Redirect to another page or perform other actions as needed
+            } else {
+                alert('Invalid credentials. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

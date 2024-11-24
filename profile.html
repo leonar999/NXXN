@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (head content) ... -->
+</head>
+<body>
+    <section id="header">
+        <!-- Include the header content as in your original HTML -->
+    </section>
+
+    <section id="profile">
+        <div class="profile-info">
+            <h2>Welcome, <span id="userName"></span></h2>
+            <p>Email: <span id="userEmail"></span></p>
+            <p>Username: <span id="userUsername"></span></p>
+            <!-- Add more profile information as needed -->
+        </div>
+    </section>
+
+    <!-- Include the footer content as in your original HTML -->
+
+    <script>
+        // Retrieve user data from local storage
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+
+        // Check if user data exists
+        if (storedUsername && storedPassword) {
+            // Display user data on the profile page
+            document.getElementById('userName').textContent = storedUsername;
+            // You can add more fields like email and username as needed
+        } else {
+            // Redirect to the login page if user data is not found
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

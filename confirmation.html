@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction Complete</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="img/bou.jpg" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html"><i class='bx bx-shopping-bag bx-md'></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+
+    <div class="container">
+        <h1 id="transaction-status">Transaction Complete</h1>
+        <p>Your payment has been successfully processed.</p>
+    </div>
+
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/bou.jpg" alt="FashionHub">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> Dagbana Estate Jikwoyi Phase 3 Karu Abuja</p>
+            <p><strong>Tel:</strong> +2347061021718</p>
+            <p><strong>Hours:</strong> 10:00-18:00, Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class='bx bxl-facebook bx-sm'></i>
+                    <i class='bx bxl-twitter bx-sm'></i>
+                    <i class='bx bxl-instagram bx-sm'></i>
+                    <i class='bx bxl-pinterest-alt bx-sm'></i>
+                    <i class='bx bxl-youtube bx-sm'></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and Condition</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">Wishlist</a>
+            <a href="#">Track my order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google PLay</p>
+            <div class="row">
+                <img src="img/pay/play.jpg" alt="Google Play">
+                <img src="img/pay/app.jpg" alt="App Store">
+            </div>
+            <p>Secured Payment Getways</p>
+            <img src="img/pay/pay.png" alt="Payment Gateways">
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 FashionHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    
+    <script>
+        // Use JavaScript to determine if the transaction has failed
+        var transactionFailed = true; // Set this to true if the transaction fails
+
+        if (transactionFailed) {
+            document.getElementById("transaction-status").style.display = "none"; // Hide "Transaction Complete"
+            document.getElementById("transaction-failed-message").style.display = "block"; // Show the error message
+            document.getElementById("transaction-status-failed").style.display = "block"; // Show "Transaction Failed" heading
+        }
+    </script>
+</body>
+</html>
+
+
+
+

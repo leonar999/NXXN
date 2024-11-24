@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>NXXN | HOME</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add styles for the user dropdown menu */
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0; /* Align the dropdown to the right */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* Trending Items Styles */
+        .trending-items {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .trending-item {
+            display: none; /* Hide all items by default */
+        }
+
+        .trending-item.active {
+            display: block; /* Show the active item */
+        }
+        
+
+        
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo (1).png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html"><i class='bx bx-shopping-bag bx-md'></i></a></li>
+                
+                <!-- User Icon and Dropdown -->
+                <li class="user-menu">
+                    <a href="javascript:void(0);" onclick="toggleDropdown()">
+                        <i class='bx bx-user bx-md'></i>
+                    </a>
+                    <div id="userDropdown" class="dropdown-content">
+                        <a href="login.html">Sign In</a>
+                        <a href="profile.html">Sign Up</a>
+                        <a href="cart.html">My Orders</a>
+                        <a href="#">Account Settings</a>
+                        <a href="contact.html">Address Book</a>
+                        <a href="wishlist.html">Saved Items</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <br>
+    <br>
+    <br>
+    <section id="hero">
+        <video autoplay loop muted class="video-background">
+            <source src="video/v1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+         </video>
+        <h4>Discover Fashion</h4>
+        <h2>Unleash Your Style</h2>
+        <h1>With NXXN</h1>
+        <p>Get ready to upgrade your wardrobe with the latest trends.</p>
+        <a href="shop.html" class="shop-now-button">Shop Now</a>
+    </section>
+
+    
+
+    
+     <!-- Add this section after the Featured Products Section -->
+<section class="trending">
+    <div class="trending-header">
+        <h2>Trending Now</h2>
+        <div class="ankara-pattern"></div>
+    </div>
+    
+    <div class="trending-container">
+        <div class="trending-controls">
+            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <div class="trending-items">
+            <div class="trending-item">
+                <div class="trend-badge">New</div>
+                <img src="img/hero.png" alt="Ankara Fusion Jacket">
+                <div class="trend-info">
+                    <h3>Ankara Fusion Jacket</h3>
+                    <p class="price">₦65,000.00</p>
+                    <div class="trend-overlay">
+                        <a href="sproduct.html?id=1" class="quick-view">Quick View</a>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="trending-item">
+                <div class="trend-badge">Hot</div>
+                <img src="img/nx tt.jpeg" alt="Adire Denim Collection">
+                <div class="trend-info">
+                    <h3>Adire Denim Collection</h3>
+                    <p class="price">₦45,000.00</p>
+                    <div class="trend-overlay">
+                        <a href="sproduct2.html?id=2" class="quick-view">Quick View</a>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="trending-item">
+                <div class="trend-badge">Limited</div>
+                <img src="img/White-NXXN-TANK-TOP-600x780.jpeg" alt="Aso-Oke Blend">
+                <div class="trend-info">
+                    <h3>Aso-Oke Blend Jacket</h3>
+                    <p class="price">₦85,000.00</p>
+                    <div class="trend-overlay">
+                        <a href="sproduct3.html?id=3" class="quick-view">Quick View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  
+
+    <!-- Membership Section -->
+    <section class="membership">
+        <div class="membership-container">
+            <div class="membership-content">
+                <div class="membership-text">
+                    <h2>Become a NXXN Member</h2>
+                    <p>Join the NXXN family and enjoy exclusive benefits:</p>
+                    <ul class="benefits-list">
+                        <li><i class="fas fa-check-circle"></i> Early access to new collections</li>
+                        <li><i class="fas fa-check-circle"></i> Member-only discounts</li>
+                        <li><i class="fas fa-check-circle"></i> Birthday rewards</li>
+                        <li><i class="fas fa-check-circle"></i> Free shipping on all orders</li>
+                    </ul>
+                    <button class="join-btn">Join Now</button>
+                </div>
+                <div class="membership-image">
+                    <img src="img/member.png" alt="Membership Benefits">
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Newsletter Section -->
+<section class="newsletter">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Stay updated with our latest trends, exclusive offers, and fashion tips.</p>
+            <form class="newsletter-form" id="subscribeForm">
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </div>
+                <label class="checkbox-container">
+                    <input type="checkbox" required>
+                    <span class="checkmark"></span>
+                    I agree to receive marketing emails
+                </label>
+            </form>
+            <div id="responseMessage"></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('subscribeForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const email = document.getElementById('email').value;
+
+        fetch('/subscribe', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email: email })
+})
+.then(response => response.json())
+.then(data => {
+    document.getElementById('responseMessage').innerText = data.message;
+    document.getElementById('subscribeForm').reset();
+})
+.catch(error => {
+    document.getElementById('responseMessage').innerText = 'Error: ' + error.message;
+});
+
+    });
+</script>
+
+    <footer class="section-p1">
+        <div class="col">
+            <a href="#"><img src="img/logo (1).png" class="logo" alt=""></a>
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> Lagos</p>
+            <p><strong>Tel:</strong> 
+                +234 701 124 8864</p>
+            <p><strong>Hours:</strong> 10:00-18:00, Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class='bx bxl-facebook bx-sm'></i>
+                    <i class='bx bxl-twitter bx-sm'></i>
+                    <i class='bx bxl-instagram bx-sm'></i>
+                    <i class='bx bxl-pinterest-alt bx-sm'></i>
+                    <i class='bx bxl-youtube bx-sm'></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and Condition</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="add to wishlist.html">Wishlist</a>
+            <a href="#">Track my order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google PLay</p>
+            <div class="row">
+                <img src="img/pay/play.jpg" alt="Google Play">
+                <img src="img/pay/app.jpg" alt="App Store">
+            </div>
+            <p>Secured Payment Getways</p>
+            <img src="img/pay/pay.png" alt="Payment Gateways">
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Techvantage Innovation.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("userDropdown").classList.toggle("show");
+        }
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            const logoContainer = document.querySelector('.logo-container');
+
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+                logoContainer.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+                logoContainer.classList.remove('scrolled');
+            }
+        });
+
+        function toggleDropdown() {
+            document.getElementById("userDropdown").classList.toggle("show");
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.trending-item');
+            const prevButton = document.querySelector('.prev-btn');
+            const nextButton = document.querySelector('.next-btn');
+            let currentIndex = 0;
+
+            // Function to update the displayed items
+            function updateItems() {
+                items.forEach((item, index) => {
+                    item.classList.remove('active'); // Remove active class from all items
+                });
+                items[currentIndex].classList.add('active'); // Add active class to current item
+            }
+
+            // Event listener for the Next button
+            nextButton.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % items.length; // Loop back to the first item
+                updateItems();
+            });
+
+            // Event listener for the Previous button
+            prevButton.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + items.length) % items.length; // Loop back to the last item
+                updateItems();
+            });
+
+            // Initial display
+            updateItems();
+        });
+    </script>
+
+
+</body>
+</html>

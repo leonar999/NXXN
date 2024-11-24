@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>NXXN | CART </title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo (1).png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a  href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a class="active" href="cart.html"><i class='bx bx-shopping-bag bx-md'></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="page-header">
+        
+        <h2>CheckOut Spot</h2>
+        
+        <p>View Your Items Here!</p>
+        
+    </section>
+
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <!-- Cart items will be displayed here -->
+            </tbody>
+        </table>
+    </section>
+
+    <section id="cart-add" class="section-p1">
+        <div id="subtotal">
+            <h3>Cart Total</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td id="cart-subtotal">₦0</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td id="cart-total">₦0</td>
+                </tr>
+            </table>
+            <button id="proceed-to-payment" class="normal">Proceed to Checkout</button>
+
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/logo (1).png" alt="FashionHub">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> Lagos</p>
+            <p><strong>Tel:</strong> 
+                +234 701 124 8864</p>
+            <p><strong>Hours:</strong> 10:00-18:00, Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class='bx bxl-facebook bx-sm'></i>
+                    <i class='bx bxl-twitter bx-sm'></i>
+                    <i class='bx bxl-instagram bx-sm'></i>
+                    <i class='bx bxl-pinterest-alt bx-sm'></i>
+                    <i class='bx bxl-youtube bx-sm'></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and Condition</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">Wishlist</a>
+            <a href="#">Track my order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google PLay</p>
+            <div class="row">
+                <img src="img/pay/play.jpg" alt="Google Play">
+                <img src="img/pay/app.jpg" alt="App Store">
+            </div>
+            <p>Secured Payment Getways</p>
+            <img src="img/pay/pay.png" alt="Payment Gateways">
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 FashionHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    
+
+    <script>
+        // Retrieve cart data from localStorage
+        var cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Function to update the cart table and totals
+        function updateCart() {
+            var cartItems = document.getElementById("cart-items");
+            var cartSubtotal = document.getElementById("cart-subtotal");
+            var cartTotal = document.getElementById("cart-total");
+
+            // Clear existing cart items
+            cartItems.innerHTML = "";
+
+            var subtotal = 0;
+
+            // Iterate through the cart items
+            for (var i = 0; i < cart.length; i++) {
+                var item = cart[i];
+
+                // Create a table row for the item
+                var row = document.createElement("tr");
+                row.innerHTML = `
+                    <td><a href="#" onclick="removeItem(${i})"><i class='bx bxs-x-circle'></i></a></td>
+                    <td><img src="${item.image}" alt=""></td>
+                    <td>${item.name}<br>Option: ${item.option}</td>
+                    <td>${item.price}</td>
+                    <td><input type="number" value="${item.quantity}" onchange="updateQuantity(${i}, this.value)"></td>
+                    <td>₦${item.total.toFixed(2)}</td>
+                `;
+
+                cartItems.appendChild(row);
+
+                // Add the item's total to the subtotal
+                subtotal += item.total;
+            }
+
+            // Update the cart subtotal and total
+            cartSubtotal.textContent = `₦${subtotal.toFixed(2)}`;
+            cartTotal.textContent = `₦${subtotal.toFixed(2)}`;
+        }
+
+        // Function to remove an item from the cart
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+            // Update localStorage with the modified cart
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+        // Function to update the quantity of an item in the cart
+        function updateQuantity(index, newQuantity) {
+            cart[index].quantity = parseInt(newQuantity);
+            cart[index].total = parseFloat(cart[index].price.replace('₦', '').replace(',', '')) * cart[index].quantity;
+            updateCart();
+            // Update localStorage with the modified cart
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+        // Initially, update the cart on page load
+        updateCart();
+
+        document.getElementById("proceed-to-payment").addEventListener("click", function() {
+    // Create a URL parameter string with cart data
+    var cartData = cart.map(function(item) {
+        return `name=${encodeURIComponent(item.name)}&quantity=${encodeURIComponent(item.quantity)}&price=${encodeURIComponent(item.price)}`;
+    }).join('&');
+
+    // Redirect to the confirmation page with cart data as URL parameters
+    window.location.href = `index5.html?${cartData}`;
+});
+
+    </script>
+</body>
+</html>

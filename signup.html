@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style4.css">
+</head>
+<body>
+    <section id="signup">
+        <div class="signup-form">
+            <h2>Create an Account</h2>
+            <form id="signupForm">
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="signupEmail" required>
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" name="signupPassword" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Log in</a></p>
+        </div>
+    </section>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Get user input values from the signup form
+            const signupEmail = document.getElementById('signupEmail').value;
+            const signupPassword = document.getElementById('signupPassword').value;
+
+            // Check if the user already exists in Local Storage
+            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if the entered email already exists
+            const userExists = existingUsers.some(user => user.email === signupEmail);
+
+            if (userExists) {
+                alert('User with this email already exists. Please log in.');
+            } else {
+                // Create a new user object
+                const newUser = { email: signupEmail, password: signupPassword };
+
+                // Add the new user to the list of existing users
+                existingUsers.push(newUser);
+
+                // Store the updated list of users in Local Storage
+                localStorage.setItem('users', JSON.stringify(existingUsers));
+
+                alert('User with this email already exists. Please log in.');
+
+                // Redirect to the login page
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

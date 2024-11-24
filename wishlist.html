@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>NXXN | Wishlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+        }
+
+        #header .logo {
+            max-width: 150px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .wishlist-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .wishlist-item {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+        }
+
+        .wishlist-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .wishlist-item h5 {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .wishlist-item h4 {
+            color: #1cb33a;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo (1).png" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html"><i class='bx bx-shopping-bag bx-md'></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <h2>Your Wishlist</h2>
+    <div class="wishlist-container" id="wishlistContainer"></div>
+
+    <footer>
+        <div class="col">
+            <img class="logo" src="img/logo (1).png" alt="FashionHub">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> Dagbana Estate Jikwoyi Phase 3 Karu Abuja</p>
+            <p><strong>Tel:</strong> +2347061021718</p>
+            <p><strong>Hours:</strong> 10:00-18:00, Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <                <div class="icon">
+                    <i class='bx bxl-facebook bx-sm'></i>
+                    <i class='bx bxl-twitter bx-sm'></i>
+                    <i class='bx bxl-instagram bx-sm'></i>
+                    <i class='bx bxl-pinterest-alt bx-sm'></i>
+                    <i class='bx bxl-youtube bx-sm'></i>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 NXXN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to load wishlist items from localStorage
+        function loadWishlist() {
+            const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+            const wishlistContainer = document.getElementById('wishlistContainer');
+
+            // Clear the wishlist container
+            wishlistContainer.innerHTML = '';
+
+            if (wishlist.length === 0) {
+                wishlistContainer.innerHTML = '<p>Your wishlist is empty.</p>';
+                return;
+            }
+
+            wishlist.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'wishlist-item';
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h5>${item.name}</h5>
+                    <h4>${item.price}</h4>
+                    <div class="button-container">
+                        <button class="remove-btn" onclick="removeFromWishlist('${item.name}')">Remove</button>
+                    </div>
+                `;
+                wishlistContainer.appendChild(itemDiv);
+            });
+        }
+
+        // Function to remove an item from the wishlist
+        function removeFromWishlist(name) {
+            let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+            wishlist = wishlist.filter(item => item.name !== name);
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+            loadWishlist(); // Reload the wishlist after removal
+        }
+
+        // Load wishlist items on page load
+        window.onload = loadWishlist;
+    </script>
+</body>
+</html>

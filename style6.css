@@ -1,0 +1,97 @@
+/* Reset some default styles */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+#navbar {
+    display: flex;
+    align-items:center ;
+    justify-content: center;
+}
+
+#navbar li {
+    display: inline;
+    margin-right: 20px;
+    padding: 0 20px;
+    position: relative;
+}
+
+#navbar li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+#navbar li a:hover,
+#navbar li a.active{
+    color:#088178;
+}
+
+/* Define styles for the page container */
+.container {
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the "Transaction Complete" heading */
+#transaction-status {
+    color: #4CAF50;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+/* Style for the "Transaction Failed" heading */
+#transaction-status-failed {
+    color: #FF0000;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+/* Style for the paragraphs */
+p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+/* Add a hover effect to the "Transaction Complete" heading */
+#transaction-status:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Style for the error message */
+#transaction-failed-message {
+    color: #FF0000;
+    font-size: 24px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .container {
+        padding: 10px;
+        margin-top: 30px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    /* Add a hover effect to the "Transaction Complete" heading on smaller screens */
+    #transaction-status:hover {
+        text-decoration: none;
+    }
+}

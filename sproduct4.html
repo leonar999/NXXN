@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>FashionHub</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        /* Basic styles for the side menu */
+        #cart-menu {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Initially hidden */
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto; /* Enable scrolling if needed */
+        }
+
+        #cart-menu.open {
+            right: 0; /* Show the menu */
+        }
+
+        #cart-menu h2 {
+            margin-bottom: 20px;
+            color: #088178;
+        }
+
+        #cart-menu .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            transition: transform 0.2s;
+        }
+
+        #cart-menu .cart-item:hover {
+            transform: scale(1.02);
+        }
+
+        #cart-menu img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        #toggle-cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #088178;
+            color: white;
+            border: none;
+            padding: 8px 10px; /* Reduced padding */
+            cursor: pointer;
+            z-index: 1001; /* Above the side menu */
+            border-radius: 4px;
+            font-size: 16px; /* Smaller font size */
+        }
+
+        /* Close button styles */
+        #close-cart {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* Remove button styles */
+        .remove-btn {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: darkgreen;
+        }
+
+        #subtotal {
+        margin-top: 20px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px; /* Increased padding */
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        font-size: 18px; /* Increased font size */
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Include padding and border in the element's total width */
+    }
+
+    #total-price {
+        font-size: 20px; /* Larger font size for total price */
+        color: #088178; /* Change color for emphasis */
+    }
+
+    /* Checkout Menu */
+#checkout-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    padding: 20px;
+    overflow-y: auto;
+    display: none; /* Initially hidden */
+}
+/* Checkout Button Styles */
+#checkout-btn {
+    margin-top: 20px;
+    padding: 12px; /* Increased padding for better size */
+    background-color: #088178; /* Main color */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    width: 100%; /* Full width */
+    font-size: 18px; /* Larger font size */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+#checkout-btn:hover {
+    background-color: #066f66; /* Darker shade on hover */
+    transform: scale(1.02); /* Slightly scale up on hover */
+}
+#checkout-menu h2 {
+    margin-bottom: 20px;
+    color: #088178;
+    font-size: 24px;
+    text-align: center;
+}
+
+#checkout-menu #checkout-items {
+    margin-bottom: 20px;
+}
+
+#checkout-menu .checkout-item {
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom:  1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#checkout-menu img {
+    width: 100px; /* Smaller image for checkout */
+    height: 100px;
+    border-radius: 5px;
+}
+
+#checkout-menu #checkout-subtotal {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 18px;
+}
+
+/* Close Button Styles */
+#close-cart {
+    background-color: #e74c3c; /* Red color */
+    color: white;
+    border: none;
+    padding: 10px 15px; /* Increased padding */
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 50%; /* Full width */
+    font-size: 16px; /* Increased font size */
+    transition: background-color 0.3s ease;
+}
+#close-checkout  {
+    margin-top: 20px;
+    padding: 12px; /* Increased padding */
+    background-color:  #e74c3c; /* Main color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%; /* Full width */
+    font-size: 18px; /* Larger font size */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transform for scaling */
+}
+
+#close-cart:hover, #close-checkout:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Proceed to Payment Button */
+#proceed-to-payment-btn {
+    margin-top: 20px;
+    padding: 12px; /* Increased padding */
+    background-color: #088178; /* Main color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%; /* Full width */
+    font-size: 18px; /* Larger font size */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transform for scaling */
+}
+
+#proceed-to-payment-btn:hover {
+    background-color: #066f66; /* Darker shade on hover */
+    transform: scale(1.02); /* Slightly scale up on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #cart-menu, #checkout-menu {
+        width: 100%; /* Full width on smaller devices */
+        right: 0; /* Show menu */
+    }
+
+    #cart-menu h2, #checkout-menu h2 {
+        font-size: 20px; /* Smaller heading size */
+    }
+
+    #toggle-cart {
+        padding: 8px 12px; /* Adjust button size */
+        font-size: 16px; /* Smaller font size */
+    }
+
+    #close-cart, #close-checkout, #proceed-to-payment-btn {
+        padding: 10px; /* Adjust button size */
+        font-size: 14px; /* Smaller font size */
+    }
+
+    #cart-menu img, #checkout-menu img {
+        width: 40px; /* Smaller images for mobile */
+        height: 40px;
+    }
+}
+
+
+    </style>
+    <section id="header">
+        <a href="#"><img src="img/logo (1).png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#" id="toggle-cart"><i class='bx bx-shopping-bag bx-md'></i ></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="prodetails" class="section-p1">
+        <div class="single-pro-image">
+            <img src="img/shoes/1.jpg"  width="100%" id="MainImg" alt="">
+        </div>
+        <div class="small-img-group">
+            <div class="small-img-col">
+                <img src="img/shoes/2.jpg" width="100%" class="small-img" alt="">
+            </div>
+            <div class="small-img-col">
+                <img src="img/shoes/3.jpg" width="100%" class="small-img" alt="">
+            </div>
+            <div class="small-img-col">
+                <img src="img/shoes/4.jpg" width="100%" class="small-img" alt="">
+            </div>
+            <div class="small-img-col">
+                <img src="img/shoes/5.jpg" width="100%" class="small-img" alt="">
+            </div>
+        </div>
+        <div class="single-pro-details">
+            <h6>Nike</h6>
+            <h4>Running Shoes</h4>
+            <h2>₦65,000</h2>
+            <select id="fit-select">
+                <option>Find your Fit</option>
+                <option>Small</option>
+                <option>Large</option>
+                <option>XL</option>
+                <option>XXL</option>
+            </select>
+            <input type="number" value="1">
+            <button class="normal" onclick="addToCart()">Add to Cart</button>
+
+            <h4>Product Details</h4>
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor voluptatem, doloremque, dolores soluta dolorem, aperiam eligendi porro enim labore illo corrupti assumenda delectus iste quas. Provident cumque nesciunt culpa dolorum.</span>
+        </div>
+    </section>
+    <!-- Side menu for cart -->
+    <div id="cart-menu">
+        <h2>Cart</h2>
+        <button id="close-cart">Close</button>
+        <div id="cart-items"></div>
+        <div id="subtotal">
+            <span>Subtotal:</span>
+            <span id="total-price">₦0</span>
+        </div>
+        <button id="checkout-btn">Checkout</button>
+    </div>
+
+       <!-- Checkout Menu -->
+<div id="checkout-menu" style="display:none;">
+    <h2>Checkout</h2>
+    <div id="checkout-items"></div>
+    <div id="checkout-subtotal">
+        <span>Total:</span>
+        <span id="checkout-total-price">₦0</span>
+    </div>
+    <button id="proceed-to-payment-btn">Proceed to Payment</button>
+    <button id="close-checkout">Close</button>
+</div>
+
+
+    <section id="product1" class="section-p1">
+        <h2>Featured Products</h2>
+        <p>Summer Collection New Modern Design</p>
+        <div class="pro-container">
+            <div class="pro" onclick="window.location.href='sproduct2.html';">
+                <img src="img/watches/4.jpg" alt="">
+                <div class="des">
+                    <span>Watches</span>
+                    <h5>Classic watches</h5>
+                    <div class="star">
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star-half'></i>
+                    </div>
+                    <h4>₦65,000</h4>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+            </ul>
+                </div>
+            </div>
+            <div class="pro" onclick="window.location.href='sproduct2.html';">
+                <img src="img/jacket/j5.jpg" alt="">
+                <div class="des">
+                    <span>Nike</span>
+                    <h5>Jacket</h5>
+                    <div class="star">
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bx-star'></i>
+                    </div>
+                    <h4>₦78,000</h4>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+            <div class="pro">
+                <img src="img/ree.jpg" alt="">
+                <div class="des">
+                    <span>Reebok</span>
+                    <h5>Sports T-shirt</h5>
+                    <div class="star">
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star-half'></i>
+                        <i class='bx bx-star'></i>
+                    </div>
+                    <h4>₦78,000</h4>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+            </ul>
+                </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Stay updated with our latest trends, exclusive offers and fashion tips.</p>
+                <form class="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Enter your email address">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                    <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                        I agree to receive marketing emails
+                    </label>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/logo (1).png" alt="FashionHub">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> Dagbana Estate Jikwoyi Phase 3 Karu Abuja</p>
+            <p><strong>Tel:</strong> +2347061021718</p>
+            <p><strong>Hours:</strong> 10:00-18:00, Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class='bx bxl-facebook bx-sm'></i>
+                    <i class='bx bxl-twitter bx-sm'></i>
+                    <i class='bx bxl-instagram bx-sm'></i>
+                    <i class='bx bxl-pinterest-alt bx-sm'></i>
+                    <i class='bx bxl-youtube bx-sm'></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and Condition</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">Wishlist</a>
+            <a href="#">Track my order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google PLay</p>
+            <div class="row">
+                <img src="img/pay/play.jpg" alt="Google Play">
+                <img src="img/pay/app.jpg" alt="App Store">
+            </div>
+            <p>Secured Payment Getways</p>
+            <img src="img/pay/pay.png" alt="Payment Gateways">
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 FashionHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        var MainImg = document.getElementById("MainImg");
+        var smallimg = document.getElementsByClassName("small-img");
+
+        smallimg[0].onclick = function(){
+            MainImg.src = smallimg[0].src;
+        }
+        smallimg[1].onclick = function(){
+            MainImg.src = smallimg[1].src;
+        }
+        smallimg[2].onclick = function(){
+            MainImg.src = smallimg[2].src;
+        }
+        smallimg[3].onclick = function(){
+            MainImg.src = smallimg[3].src;
+        }
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Function to update the cart menu
+        function updateCartMenu() {
+            const cartItems = document.getElementById("cart-items");
+            cartItems.innerHTML = "";
+
+            let totalPrice = 0;
+
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement("div");
+                cartItem.className = "cart-item";
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div>
+                        <h4>${item.name}</h4>
+                        <p>₦${item.price.replace('₦', '')}</p> <!-- Remove the ₦ symbol -->
+                        <p>Quantity: ${item.quantity}</p>
+                        <p>Fit: ${item.option}</p>
+                    </div>
+                    <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                `;
+                cartItems.appendChild(cartItem);
+
+                totalPrice += item.total;
+            });
+
+            document.getElementById("total-price").textContent = `₦${totalPrice.toFixed(2)}`; 
+        }
+
+        // Function to add an item to the cart
+        function addToCart() {
+            var productName = document.querySelector(".single-pro-details h4").textContent;
+            var productPrice = document.querySelector(".single-pro-details h2").textContent;
+            var quantity = parseInt(document.querySelector(".single-pro-details input").value);
+            var productImage = document.querySelector("#MainImg").src; // Get the selected image URL
+            var selectedOption = document.querySelector("#fit-select").value;
+
+             // Check if a size is selected
+    if (selectedOption === "Find your Fit") {
+        alert("Please select a size before adding to the cart."); // Alert user to select a size
+        return; // Exit the function if no size is selected
+    }
+
+            // Calculate the total price for this product
+            var totalProductPrice = parseFloat(productPrice.replace('₦', '').replace(',', '')) * quantity;
+
+            var item = {
+                name: productName,
+                price: productPrice,
+                quantity: quantity,
+                image: productImage, 
+                option: selectedOption, // Store the selected fit option
+                total: totalProductPrice
+            };
+
+            // Add the new item to the cart
+            cart.push(item);
+
+            // Store the updated cart data in localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // Update the cart menu
+            updateCartMenu();
+
+            // Show a confirmation message
+            alert("Product added to cart!");
+        }
+
+ // Function to remove an item from the cart
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartMenu();
+            // Update localStorage with the modified cart
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+        // Toggle the cart menu
+        document.getElementById("toggle-cart").addEventListener("click", function() {
+            document.getElementById("cart-menu").classList.toggle("open");
+        });
+
+        // Close the cart menu
+        document.getElementById("close-cart").addEventListener("click", function() {
+            document.getElementById("cart-menu").classList.remove("open");
+        });
+
+        // Initially, update the cart menu on page load
+        updateCartMenu();
+
+
+
+        // Function to update the checkout menu
+function updateCheckoutMenu() {
+    const checkoutItems = document.getElementById("checkout-items");
+    checkoutItems.innerHTML = "";
+
+    let totalPrice = 0;
+
+    cart.forEach((item, index) => {
+        const checkoutItem = document.createElement("div");
+        checkoutItem.className = "checkout-item";
+        checkoutItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div>
+                <h4>${item.name}</h4>
+                <p>₦${item.price.replace('₦', '')}</p>
+                <p>Quantity: ${item.quantity}</p>
+                <p>Fit: ${item.option}</p>
+            </div>
+            <button class="remove-btn" onclick="removeFromCheckout(${index})">Remove</button>
+        `;
+        checkoutItems.appendChild(checkoutItem);
+
+        totalPrice += item.total;
+    });
+
+    document.getElementById("checkout-total-price").textContent = `₦${totalPrice.toFixed(2)}`;
+}
+
+// Function to remove an item from the checkout menu
+function removeFromCheckout(index) {
+    // Remove the item from the cart
+    cart.splice(index, 1);
+    
+    // Update localStorage with the modified cart
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Update the checkout menu
+    updateCheckoutMenu();
+    
+    // Update the cart menu to reflect the removal
+    updateCartMenu();
+}
+
+// Show checkout menu when clicking the checkout button
+document.getElementById("checkout-btn").addEventListener("click", function() {
+    document.getElementById("cart-menu").classList.remove("open"); // Close cart menu
+    document.getElementById("checkout-menu").style.display = "block"; // Show checkout menu
+    updateCheckoutMenu(); // Update checkout items
+});
+
+// Close checkout menu
+document.getElementById("close-checkout").addEventListener("click", function() {
+    document.getElementById("checkout-menu").style.display = "none"; // Hide checkout menu
+});
+
+// Redirect to payment gateway
+document.getElementById("proceed-to-payment-btn").addEventListener("click", function() {
+    // Here you would typically redirect to your payment gateway URL
+    window.location.href = "https://your-payment-gateway-url.com"; // Replace with actual payment gateway URL
+});
+    </script>
+    
+</body>
+</html>
